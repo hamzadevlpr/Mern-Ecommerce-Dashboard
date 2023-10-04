@@ -1,5 +1,5 @@
 import React from 'react'
-import Dropdown from '../Global/Dropdown'
+import Dropdown from '../components/Global/Dropdown'
 
 function Filter() {
     return (

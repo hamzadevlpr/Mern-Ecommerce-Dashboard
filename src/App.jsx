@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar/Sidebar"
 import Products from "./components/Products/Products"
 import AddProduct from "./components/Products/AddProduct"
 import { Toaster } from 'react-hot-toast';
+import EditProduct from "./components/Products/EditProduct"
 
 
 
@@ -19,6 +20,7 @@ function App() {
           <Route path='/' element={<Dashboard title="Dashboard" />} />
           <Route path='/dashboard' element={<Dashboard title="Dashboard" />} />
           <Route path='/products' element={<Products title="Product Gallery" />} />
+          <Route path="/edit/:productId" element={<EditProduct />} />
           <Route path='/add' element={<AddProduct title="Add Product" />} />
         </Routes>
       </div>
@@ -32,9 +34,9 @@ function App() {
           // Define default options
           className: '',
           duration: 5000,
-          
+
         }}
-      />
+      />``
     </>
   )
 }

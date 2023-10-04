@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
-
+import { API_BASE_URL } from '../../config';
 
 function AddProduct(props) {
     // Form Handle
@@ -32,15 +32,10 @@ function AddProduct(props) {
         const { title, imageURL, price, percent, category, desc } = formData;
 
         if (!title || !imageURL || !price || !percent || !category || !desc) {
-            toast("Fields Cannot be Empty", {
-                style: {
-                    background: 'rgb(220 38 38)',
-                    color: '#fff',
-                },
-            });
+            toast.error("Fields Cannot be Empty");
         } else {
             try {
-                const url = "http://localhost:3000/add";
+                const url = `${API_BASE_URL}/add`;
                 const response = await axios.post(url, {
                     title,
                     imageURL,
@@ -57,7 +52,7 @@ function AddProduct(props) {
                 });
                 navigate('/products')
             } catch (error) {
-                toast("Error occurred while adding product", {
+                toast.error("Error occurred while adding product", {
                     style: {
                         background: 'rgb(220 38 38)',
                         color: '#fff',

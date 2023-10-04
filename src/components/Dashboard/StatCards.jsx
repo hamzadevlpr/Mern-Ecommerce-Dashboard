@@ -1,6 +1,10 @@
-import React from 'react'
+
+import { SidebarContext } from '../../context/SidebarContext';
+import React, { useContext } from 'react'
 
 function StatCards() {
+    const { prod } = useContext(SidebarContext);
+    console.log(prod)
     return (
         <>
             <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
@@ -16,7 +20,7 @@ function StatCards() {
                                 Total Products
                             </p>
                             <p className="text-lg font-semibold text-gray-700">
-                                6,389
+                                {prod}
                             </p>
                         </div>
                     </div>

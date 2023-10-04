@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../Models/product');
 
-router.get("/api/products", async (req, res) => {
+router.get("/products", async (req, res) => {
     try {
         const products = await Product.find();
         res.json(products);
@@ -13,7 +13,7 @@ router.get("/api/products", async (req, res) => {
 });
 
 // Route to get product details by ID
-router.get('/api/products/:productId', async (req, res) => {
+router.get('/:productId', async (req, res) => {
     try {
         const productId = req.params.productId;
 
@@ -58,6 +58,37 @@ router.post("/add", async (req, res) => {
         res.status(201).json(savedProduct);
     } catch (error) {
         res.status(500).json({ error: "An error occurred while adding the product" });
+    }
+});
+// Update a product by ID
+router.put("/:productId", async (req, res) => {
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(
+            req.params.productId,
+            req.body,
+            { new: true }
+        );
+        if (!updatedProduct) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+        res.json(updatedProduct);
+    } catch (error) {
+        res.status(500).json({ error: "Error updating product" });
+    }
+});
+
+// Delete a product by ID
+router.delete("/:productId", async (req, res) => {
+    try {
+        const deletedProduct = await Product.findByIdAndRemove(
+            req.params.productId
+        );
+        if (!deletedProduct) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+        res.json({ message: "Product deleted" });
+    } catch (error) {
+        res.status(500).json({ error: "Error deleting product" });
     }
 });
 module.exports = router;
