@@ -35,7 +35,7 @@ function AddProduct(props) {
             toast.error("Fields Cannot be Empty");
         } else {
             try {
-                const url = `${API_BASE_URL}/add`;
+                const url = `${API_BASE_URL}/api/add`;
                 const response = await axios.post(url, {
                     title,
                     imageURL,

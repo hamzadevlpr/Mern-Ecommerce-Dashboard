@@ -12,7 +12,7 @@ app.use(express.json());
 const userRoutes = require('./Routes/user');
 const productRoutes = require('./Routes/products');
 app.use('/api/users', userRoutes);
-app.use(productRoutes);
+app.use('/api', productRoutes);
 
 // Fetch all users
 app.get('/users', async (req, res) => {
@@ -38,7 +38,7 @@ db.once('open', () => {
 
 
 // Start the server
-const port = 3000;
+const port = 5000;
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

@@ -23,7 +23,7 @@ function EditProduct() {
         const fetchProduct = async () => {
             try {
                 const response = await axios.get(
-                    `${API_BASE_URL}/${productId}`
+                    `${API_BASE_URL}/api/${productId}`
                 );
 
                 const productData = response.data;
@@ -58,7 +58,7 @@ function EditProduct() {
         try {
             // Fetch the original product data again
             const response = await axios.get(
-                `${API_BASE_URL}/${productId}`
+                `${API_BASE_URL}/api/${productId}`
             );
             const originalProductData = response.data;
 
