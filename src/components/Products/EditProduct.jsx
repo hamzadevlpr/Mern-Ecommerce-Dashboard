@@ -82,7 +82,7 @@ function EditProduct() {
             } else {
                 // Changes were made, perform the update
                 await axios.put(
-                    `${API_BASE_URL}/${productId}`,
+                    `${API_BASE_URL}/api/${productId}`,
                     {
                         title: formData.title,
                         imageURL: formData.imageURL,
