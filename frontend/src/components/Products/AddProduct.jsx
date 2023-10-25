@@ -10,7 +10,7 @@ function AddProduct(props) {
         title: "",
         imageURL: "",
         price: "",
-        percent: "",
+        percent: "", 
         category: "Men's Shoes", // Set default category
         desc: "",
     });

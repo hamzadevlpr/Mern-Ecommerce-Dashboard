@@ -37,25 +37,12 @@ router.get('/:productId', async (req, res) => {
 router.post("/add", async (req, res) => {
     const { title, imageURL, price, percent, category, desc } = req.body;
 
-    if (!title || !imageURL || !price || !percent || !category || !desc) {
-        return res.status(400).json({ error: "All fields are required" });
-    }
-
     try {
-        // Create a new product
-        const newProduct = new Product({
-            title,
-            imageURL,
-            price,
-            percent,
-            category,
-            desc,
-        });
 
         // Save the product to the database
         const savedProduct = await newProduct.save();
 
-        res.status(201).json(savedProduct);
+        res.status(200).json(savedProduct);
     } catch (error) {
         res.status(500).json({ error: "An error occurred while adding the product" });
     }
