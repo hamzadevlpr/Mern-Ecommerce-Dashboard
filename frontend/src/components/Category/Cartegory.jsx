@@ -47,8 +47,8 @@ function Category() {
             try {
                 const response = await axios.post(`${API_BASE_URL}/api/category/add`, formData);
                 if (response.status === 200) {
-                    setCategories((prevCategories) => [...prevCategories, response.data]);
                     toast.success('Category Added successfully');
+                    window.location.reload();
                 } else if (response.status === 401) {
                     toast.error('Category Already Exists');
                 } else {
