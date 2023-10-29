@@ -8,6 +8,7 @@ import Pagination from './Pagination';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 import toast from 'react-hot-toast';
 import { API_BASE_URL } from '../../config';
+import Spinner from '../Default/Spinner';
 
 function Products() {
     const [products, setProducts] = useState([]);
@@ -33,7 +34,7 @@ function Products() {
     // Function to handle product deletion
     const handleDelete = async () => {
         try {
-            await axios.delete(`${API_BASE_URL}/${productToDelete._id}`);
+            await axios.delete(`${API_BASE_URL}/api/${productToDelete._id}`);
             closeDeleteModal();
             setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productToDelete._id));
             toast.error("Product Deleted Successfully");
@@ -74,7 +75,7 @@ function Products() {
                         Export
                     </button>
 
-                    <NavLink to={'/add'} className="inline-flex items-center px-4 py-1 border-2 bg-blue-600 text-white text-sm font-medium rounded-md">
+                    <NavLink to={'/products/add'} className="inline-flex items-center px-4 py-1 border-2 bg-blue-600 text-white text-sm font-medium rounded-md">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-2">
                             <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
                         </svg>
@@ -83,12 +84,10 @@ function Products() {
                 </div>
             </div>
             <main className="bg-white p-5">
-                <Filter />
+                <Filter title="Search Products" />
                 <div className="container mx-auto px-6">
                     {loading ? (
-                        <div className="flex justify-center mt-20 h-screen">
-                            <ClipLoader color="#000" size={80} className='h-96' />
-                        </div>
+                        <Spinner />
                     ) : (
                         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
                             {currentProducts.map((item) => {

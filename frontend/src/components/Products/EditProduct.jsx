@@ -8,7 +8,7 @@ import { API_BASE_URL } from '../../config';
 function EditProduct() {
     const { productId } = useParams();
     const navigate = useNavigate();
-
+    const [categorys, setCategory] = useState([]);
     const [loading, setLoading] = useState(true); // Add loading state
     const [formData, setFormData] = useState({
         title: "",
@@ -106,7 +106,18 @@ function EditProduct() {
             console.error("Error updating product:", error);
         }
     };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/category`); // Ensure that your API endpoint is correct
+                setCategory(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
+        fetchData();
+    }, []);
     return (
         <>
             <h3 className="text-gray-800 font-bold py-5 text-2xl">Edit Product</h3>
@@ -209,8 +220,10 @@ function EditProduct() {
                                             value={formData.category}
                                             onChange={handleChange}
                                         >
-                                            <option value="Men's Shoes">Men's Shoes</option>
-                                            <option value="Women's Shoes">Women's Shoes</option>
+                                            {
+                                                categorys.map((category) => (
+                                                    <option key={category._id} value={category.title}>{category.title}</option>
+                                                ))}
                                         </select>
                                     </div>
                                 </div>

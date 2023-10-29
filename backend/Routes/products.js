@@ -35,14 +35,23 @@ router.get('/:productId', async (req, res) => {
 
 // API endpoint for adding a product
 router.post("/add", async (req, res) => {
-    const { title, imageURL, price, percent, category, desc } = req.body;
-
     try {
+        const { title, imageURL, price, percent, category, desc } = req.body;
+
+        // Create a new product instance based on your Product model
+        const newProduct = new Product({
+            title,
+            imageURL,
+            price, 
+            percent,
+            category,
+            desc
+        });
 
         // Save the product to the database
         const savedProduct = await newProduct.save();
 
-        res.status(200).json(savedProduct);
+        res.status(201).json(savedProduct); // 201 status code for resource created
     } catch (error) {
         res.status(500).json({ error: "An error occurred while adding the product" });
     }

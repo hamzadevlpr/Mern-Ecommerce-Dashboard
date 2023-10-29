@@ -1,6 +1,5 @@
 // models/product.js
 const mongoose = require("mongoose");
-
 // Define the product schema
 const productSchema = new mongoose.Schema({
     title: {
@@ -30,6 +29,6 @@ const productSchema = new mongoose.Schema({
 });
 
 // Create the Product model
-const Product = mongoose.model("product", productSchema);
+const Product = mongoose.model("products", productSchema); // Use 'Product' as the model name
 
 module.exports = Product;

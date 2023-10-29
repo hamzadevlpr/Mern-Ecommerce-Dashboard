@@ -6,6 +6,7 @@ import Products from "./components/Products/Products"
 import AddProduct from "./components/Products/AddProduct"
 import { Toaster } from 'react-hot-toast';
 import EditProduct from "./components/Products/EditProduct"
+import Cartegory from "./components/Category/Cartegory"
 
 
 
@@ -21,7 +22,8 @@ function App() {
           <Route path='/dashboard' element={<Dashboard title="Dashboard" />} />
           <Route path='/products' element={<Products title="Product Gallery" />} />
           <Route path="/edit/:productId" element={<EditProduct />} />
-          <Route path='/add' element={<AddProduct title="Add Product" />} />
+          <Route path='/products/add' element={<AddProduct title="Add Product" />} />
+          <Route path='/category' element={<Cartegory title="Categories" />} />
         </Routes>
       </div>
       <Toaster
@@ -36,7 +38,7 @@ function App() {
           duration: 5000,
 
         }}
-      />``
+      />
     </>
   )
 }
