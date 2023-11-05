@@ -13,14 +13,20 @@ app.use(express.json());
 const userRoutes = require('./Routes/user');
 const productRoutes = require('./Routes/products');
 const categoryRoutes = require('./Routes/category');
-
+app.get('/', async (req, res) => {
+    try {
+        res.send('Hello World')
+    } catch (error) {
+        console.error('Server Failed:', error);
+    }
+});
 
 app.use('/api/users', userRoutes);
 app.use('/api', productRoutes);
 app.use('/api/category', categoryRoutes);
 
 // Fetch all users
-app.get('/`users`', async (req, res) => {
+app.get('/users', async (req, res) => {
     try {
         const allUsers = await User.find();
         res.json(allUsers);
