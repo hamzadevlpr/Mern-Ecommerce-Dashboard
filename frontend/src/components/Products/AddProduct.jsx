@@ -39,7 +39,7 @@ function AddProduct(props) {
             toast.error("Fields Cannot be Empty");
         } else {
             try {
-                const url = `${API_BASE_URL}/api/add`;
+                const url = `${API_BASE_URL}/api/products/add`;
                 const response = await axios.post(url, {
                     title,
                     imageURL,
@@ -69,7 +69,7 @@ function AddProduct(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${API_BASE_URL}/category`); // Ensure that your API endpoint is correct
+                const response = await axios.get(`${API_BASE_URL}/api/category`); // Ensure that your API endpoint is correct
                 setCategory(response.data);
                 setLoading(false);
             } catch (error) {

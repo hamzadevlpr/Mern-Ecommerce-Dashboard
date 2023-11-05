@@ -34,7 +34,7 @@ function Products() {
     // Function to handle product deletion
     const handleDelete = async () => {
         try {
-            await axios.delete(`${API_BASE_URL}/api/${productToDelete._id}`);
+            await axios.delete(`${API_BASE_URL}/api/products/${productToDelete._id}`);
             closeDeleteModal();
             setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productToDelete._id));
             toast.error("Product Deleted Successfully");

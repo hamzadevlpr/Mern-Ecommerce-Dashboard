@@ -9,7 +9,7 @@ function CategoryList() {
     useEffect(() => {
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(`${API_BASE_URL}/category`);
+                const response = await axios.get(`${API_BASE_URL}/api/category`);
                 console.log(response.data)
                 setCategory(response.data);
                 setLoading(false);

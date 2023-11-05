@@ -2,7 +2,16 @@ const express = require('express');
 const router = express.Router();
 const Category = require('../Models/category');
 
-
+// fetch all category
+router.get('/', async (req, res) => {
+    try {
+        const allCategory = await Category.find();
+        res.json(allCategory);
+    } catch (error) {
+        console.error('Error fetching Category Data:', error);
+        res.status(500).json({ error: 'An error occurred while fetching Category Data' });
+    }
+});
 router.post('/add', async (req, res) => {
 
     try {

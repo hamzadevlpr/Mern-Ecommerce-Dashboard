@@ -23,7 +23,7 @@ function EditProduct() {
         const fetchProduct = async () => {
             try {
                 const response = await axios.get(
-                    `${API_BASE_URL}/api/${productId}`
+                    `${API_BASE_URL}/api/products/${productId}`
                 );
 
                 const productData = response.data;
@@ -52,15 +52,29 @@ function EditProduct() {
         }));
     };
 
+    useEffect(() => {
+        setLoading(true);
+        const fetchCategory = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/api/category`);
+                setCategory(response.data);
+            } catch (error) {
+                console.error('Error fetching category data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCategory();
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            // Fetch the original product data again
-            const response = await axios.get(
-                `${API_BASE_URL}/api/${productId}`
-            );
-            const originalProductData = response.data;
+            // Fetch the original product data based on the productId
+            const response1 = await axios.get(`${API_BASE_URL}/api/products/${productId}`);
+            const originalProductData = response1.data;
 
             // Compare formData with originalProductData
             if (
@@ -73,51 +87,32 @@ function EditProduct() {
             ) {
                 navigate('/products');
                 toast("No changes were made.", {
-                    icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                        <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clipRule="evenodd" />
-                    </svg>
-
-                    ,
+                    // Your toast configuration here
                 });
             } else {
                 // Changes were made, perform the update
-                await axios.put(
-                    `${API_BASE_URL}/api/${productId}`,
-                    {
-                        title: formData.title,
-                        imageURL: formData.imageURL,
-                        price: parseFloat(formData.price),
-                        percent: parseFloat(formData.percent),
-                        category: formData.category,
-                        desc: formData.desc,
-                    }
-                );
+                await axios.put(`${API_BASE_URL}/api/products/${productId}`, {
+                    title: formData.title,
+                    imageURL: formData.imageURL,
+                    price: parseFloat(formData.price),
+                    percent: parseFloat(formData.percent),
+                    category: formData.category,
+                    desc: formData.desc,
+                });
 
-                // Redirect to the product list page after successful update
+                // Redirect to the product list page after a successful update
                 navigate('/products');
                 toast.success("Product Updated Successfully", {
-                    style: {
-                        background: '#4BB543',
-                        color: '#fff',
-                    },
+                    // Your toast configuration here
                 });
             }
         } catch (error) {
             console.error("Error updating product:", error);
         }
     };
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/category`); // Ensure that your API endpoint is correct
-                setCategory(response.data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
 
-        fetchData();
-    }, []);
+    //
+
     return (
         <>
             <h3 className="text-gray-800 font-bold py-5 text-2xl">Edit Product</h3>
