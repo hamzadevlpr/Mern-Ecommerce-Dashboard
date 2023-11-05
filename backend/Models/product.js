@@ -1,5 +1,6 @@
 // models/product.js
 const mongoose = require("mongoose");
+const categorySchema = require("../Models/category");
 // Define the product schema
 const productSchema = new mongoose.Schema({
     title: {
@@ -19,7 +20,8 @@ const productSchema = new mongoose.Schema({
         required: true,
     },
     category: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "category",
         required: true,
     },
     desc: {
